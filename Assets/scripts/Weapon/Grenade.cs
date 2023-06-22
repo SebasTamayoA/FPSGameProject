@@ -16,9 +16,14 @@ public class Grenade : MonoBehaviour
 
     public GameObject explosionEffect;
 
+    private AudioSource audioSource;
+
+    public AudioClip explotionSound;
+
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         countdown = delay;
     }
 
@@ -55,6 +60,10 @@ public class Grenade : MonoBehaviour
             }
         }
 
-        Destroy(gameObject);
+        gameObject.GetComponent<CapsuleCollider>().enabled = false;
+        gameObject.GetComponent<MeshRenderer>().enabled = false;
+        audioSource.PlayOneShot(explotionSound);
+        
+        Destroy(gameObject, delay*2);
     }
 }

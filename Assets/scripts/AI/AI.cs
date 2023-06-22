@@ -24,9 +24,17 @@ public class AI : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {   
-        navMeshAgent.SetDestination(destinations[0].position);
-        player = GameObject.FindGameObjectWithTag("Player");
+    {
+        if (destinations == null || destinations.Length == 0)
+        { 
+            transform.gameObject.GetComponent<AI>().enabled = false;
+        }
+        else
+        {
+            navMeshAgent.SetDestination(destinations[0].position);
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
+       
     }
 
     // Update is called once per frame

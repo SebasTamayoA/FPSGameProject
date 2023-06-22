@@ -23,13 +23,21 @@ public class SimpleShoot : MonoBehaviour
     [Tooltip("Casing Ejection Speed")]
     [SerializeField] private float ejectPower = 150f;
 
+    private AudioSource audioSource;
+
+    public AudioClip shotSound;
+
+
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         if (barrelLocation == null)
             barrelLocation = transform;
 
         if (gunAnimator == null)
             gunAnimator = GetComponentInChildren<Animator>();
+
     }
 
     private void Update()
@@ -47,6 +55,7 @@ public class SimpleShoot : MonoBehaviour
     {   
         if (GameManager.Instance.gunAmmo > 0)
         {
+            audioSource.PlayOneShot(shotSound);
             GameManager.Instance.gunAmmo --;
         
             if (muzzleFlashPrefab)
